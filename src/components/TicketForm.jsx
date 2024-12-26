@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import '../styles.css'
 
-const TicketForm = () => {
+const TicketForm = ({dispatch}) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('1');
@@ -26,6 +26,11 @@ const TicketForm = () => {
             description,
             priority
         };
+        dispatch({
+            //remember action object has 2 attribs, type and payload
+            type: "ADD_TICKET",
+            payload: ticket
+        })
         clearForm(); //Form should reset after a submit
     }
 
