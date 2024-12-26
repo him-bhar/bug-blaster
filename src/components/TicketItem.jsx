@@ -19,6 +19,16 @@ const TicketItem = ({ticket, dispatch}) => {
             <h3>{title}</h3>
             <p>{description}</p>
 
+            <button className="button" onClick={() =>
+                //deleting ticket by id here.
+                dispatch({type: "DELETE_TICKET", payload: {id: id}})}>
+                Delete
+            </button>
+            <button className="button" onClick={() => {
+                /*Edit ticket*/
+            }}>
+                Edit
+            </button>
         </div>
     )
 }
