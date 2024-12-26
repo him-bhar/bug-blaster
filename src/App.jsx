@@ -3,6 +3,7 @@ import './styles.css'
 import TicketForm from "./components/TicketForm.jsx";
 import ticketReducer from "./reducers/ticketReducer.jsx";
 import {useReducer} from "react";
+import TicketList from "./components/TicketList.jsx";
 
 function App() {
     const initialState = {tickets: []} //Initial state of app there are no tickets
@@ -15,9 +16,21 @@ function App() {
             <div className="container">
                 <h1>Bug Blaster</h1>
                 <TicketForm dispatch={dispatch} />
+
+                {state.tickets.length > 0 &&
+                    (<div className="results">
+                        <h2>All Tickets</h2>
+                        <TicketList dispatch={dispatch} tickets={state.tickets} />
+                    </div>)
+                }
+
             </div>
         </div>
     )
 }
+
+//{state.tickets.length > 0 && (<h2>All Tickets</h2>)}
+//This style mean that if state.tickets.length > 0 that means if there are tickets, then only render the bit followed by &&
+// Here && is not AND operator, rather its a then operator.
 
 export default App
