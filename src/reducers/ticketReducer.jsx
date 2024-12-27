@@ -34,6 +34,11 @@ function ticketReducer(state, action) {
             return {
                 ...state, editingTicket: null
             };
+        case "SET_SORTING":
+            return {
+                ...state,
+                sortPreference: action.payload
+            };
 
         default:
             return state; //No known action, so return state unchanged
