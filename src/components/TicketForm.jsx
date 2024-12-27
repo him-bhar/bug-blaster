@@ -55,6 +55,15 @@ const TicketForm = ({dispatch, editingTicket}) => {
         clearForm(); //Form should reset after a submit
     }
 
+    function cancelEdit(evt) {
+        evt.preventDefault(); //blocks from reloading the form
+        dispatch({
+            //remember action object has 2 attribs, type and payload
+            type: "CLEAR_EDITING_TICKET"
+        })
+        clearForm(); //Form should reset after a submit
+    }
+
     return (
         <form className="ticket-form" onSubmit={handleSubmit}>
             <div>
@@ -88,6 +97,10 @@ const TicketForm = ({dispatch, editingTicket}) => {
                 }
             </fieldset>
             <button className="button" type="submit">Submit</button>
+            {editingTicket && (
+                <button className="button" type="button" onClick={cancelEdit}>Cancel Edit</button>
+            )}
+
         </form>
     );
 }
