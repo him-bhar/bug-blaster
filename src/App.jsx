@@ -6,7 +6,7 @@ import {useReducer} from "react";
 import TicketList from "./components/TicketList.jsx";
 
 function App() {
-    const initialState = {tickets: []} //Initial state of app there are no tickets
+    const initialState = {tickets: [], editingTicket: null } //Initial state of app there are no tickets
 
     const [state, dispatch] = useReducer(ticketReducer, initialState) //Reducer is now setup with our reducer function and the state it is hooked with i.e. list of tickets
     //dispatch is the actual function that is called, its the default function of the reducer
@@ -15,7 +15,7 @@ function App() {
         <div className="App">
             <div className="container">
                 <h1>Bug Blaster</h1>
-                <TicketForm dispatch={dispatch} />
+                <TicketForm dispatch={dispatch} editingTicket={state.editingTicket} />
 
                 {state.tickets.length > 0 &&
                     (<div className="results">

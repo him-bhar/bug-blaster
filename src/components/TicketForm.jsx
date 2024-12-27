@@ -1,10 +1,30 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import '../styles.css'
 
-const TicketForm = ({dispatch}) => {
+//Now there are 2 possibilities,
+//1. A new ticket altogether
+//2. Editing an existing ticket
+//We need to update this form code, so it's flexible to handle both cases
+
+const TicketForm = ({dispatch, editingTicket}) => {
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
     const [priority, setPriority] = useState('1');
+
+    useEffect(() => {
+        if (editingTicket) {
+            //updating state from existing ticket being edited.
+            setTitle(editingTicket.title);
+            setDescription(editingTicket.description);
+            setPriority(editingTicket.priority);
+        } else {
+            clearForm();
+        }
+
+    }, [editingTicket]); //whenever there's an editing ticket load the ticket,
+    // useEffect will do the job of loading the existing ticket, see 2nd arg has reference to editingTicket
+    //so, this method will run each time editingTicket is executed.
+    // otherwise this method will anyways run during initial load of the component
 
     const priorityLabels = {
         1: 'Low',
@@ -21,14 +41,15 @@ const TicketForm = ({dispatch}) => {
     function handleSubmit(evt) {
         evt.preventDefault(); //blocks from reloading the form
         const ticket = {
-            id: new Date().toISOString(),
+            //If editing existing ticket reuse the id, otherwise create a new one
+            id: editingTicket ? editingTicket.id : new Date().toISOString(),
             title,
             description,
             priority
         };
         dispatch({
             //remember action object has 2 attribs, type and payload
-            type: "ADD_TICKET",
+            type: editingTicket ? "UPDATE_TICKET" : "ADD_TICKET",
             payload: ticket
         })
         clearForm(); //Form should reset after a submit

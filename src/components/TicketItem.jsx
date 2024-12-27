@@ -26,6 +26,7 @@ const TicketItem = ({ticket, dispatch}) => {
             </button>
             <button className="button" onClick={() => {
                 /*Edit ticket*/
+                dispatch({type: "SET_EDITING_TICKET", payload: ticket});
             }}>
                 Edit
             </button>
